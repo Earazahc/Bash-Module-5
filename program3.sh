@@ -20,4 +20,4 @@
 set -o nounset                                  # Treat unset variables as an error
 
 
-grep Female,Canada `pwd`/temp/unfiltered.csv | sed s/,,/,waldo@weber.edu\,/ >> filtered.csv
+grep Female,Canada `pwd`/temp/unfiltered.csv | sed s/,,/,waldo@weber.edu\,/ | awk -F, '{ print $2", "$3", "$4", "$5", "$6 }' >> filtered.csv
