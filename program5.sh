@@ -19,17 +19,22 @@
 
 set -o nounset                                  # Treat unset variables as an error
 
-HOST="$HOME/ftp/files"
-USER="$1"
-PASSWD="$2"
+HOST=137.190.19.85
+USER=$1
+PASSWD=$2
+goal="files"
 FILE="*.zip"
 
-`ftp -n $HOST`
-`quote USER $USER`
-`quote PASS $PASSWD`
-`binary`
-`put $FILE`
-`quit`
+ftp -inv $HOST <<EOF
+
+user $USER $PASSWD
+
+cd $goal
+
+put $FILE
+
+quit
+
+EOF
 
 exit 0
-
