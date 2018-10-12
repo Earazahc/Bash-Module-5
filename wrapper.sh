@@ -38,8 +38,8 @@ have_p=0
 # Usage function
 UsageFunction()
 {
-    echo "Usage: $0 [-f first_YEAR] [-l last_YEAR] [-e email] [-u user] [-p password]"
-    echo "All arguments are required"
+    echo "Usage: $0 [-f first_YEAR] [-l last_YEAR] [-e email] [-u user (optional)] [-p password (optional)]"
+    echo "Make sure required arguments are filled"
     # Always exit help with nonzero
     exit 1
 }
@@ -92,11 +92,32 @@ done
 
 # Test to make sure all params have been filled
 
-if [[ $have_f -eq 1 && $have_l -eq 1 && $have_e -eq 1 && $have_u -eq 1 && $have_p -eq 1 ]]
+if [[ $have_f -eq 1 && $have_l -eq 1 && $have_e -eq 1 ]]
 then
     echo "All params filled"
 else
     UsageFunction
 fi
+
+# check for log file, if needed create it
+if [[ ! -f log ]]
+then
+    `touch log`
+fi
+
+
+
+# Call program 1 and run in loop from first year to last
+
+i=$first_YEAR
+while [[ $i -ne $last_YEAR ]]
+do
+    echo "working on $i"
+    bash program1.sh $1
+    # `2>&1 log`
+    i=`expr $i \+ 1`
+done
+
+
 
 exit 0
