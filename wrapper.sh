@@ -119,5 +119,9 @@ do
 done
 
 
+# Send an email
+
+mail -s "Hi, we couldn't get things working bt heres an email anyways :)" $email
+
 
 exit 0
